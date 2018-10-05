@@ -1,8 +1,8 @@
 FROM microsoft/dotnet:2.1.401-sdk-stretch as builder
 LABEL maintainer "FunctionalStack, Inc."
 ENV MONO_THREADS_PER_CPU 50
-RUN MONO_VERSION=5.12.0.226 && \
-    FSHARP_VERSION=10.0.2 && \
+RUN MONO_VERSION=5.14.0.177 && \
+    FSHARP_VERSION=10.2.1 && \
     FSHARP_BASENAME=fsharp-$FSHARP_VERSION && \
     FSHARP_ARCHIVE=$FSHARP_VERSION.tar.gz && \
     FSHARP_ARCHIVE_URL=https://github.com/fsharp/fsharp/archive/$FSHARP_VERSION.tar.gz && \
@@ -29,7 +29,6 @@ RUN MONO_VERSION=5.12.0.226 && \
     apt-get clean
 
 WORKDIR /root
-ENV FrameworkPathOverride /usr/lib/mono/4.7.1-api/
 
 RUN wget https://github.com/fsprojects/Paket/releases/download/5.181.1/paket.exe \
     && chmod a+r paket.exe && mv paket.exe /usr/local/lib/ \
