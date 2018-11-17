@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.500-sdk-stretch-arm32v7 as builder
+FROM microsoft/dotnet:2.1.401-sdk-stretch as builder
 LABEL maintainer "FunctionalStack, Inc."
 ENV MONO_THREADS_PER_CPU 50
 RUN MONO_VERSION=5.14.0.177 && \
