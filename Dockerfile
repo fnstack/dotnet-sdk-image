@@ -28,6 +28,12 @@ RUN MONO_VERSION=5.16.0.179 && \
     apt-get purge -y make gnupg dirmngr && \
     apt-get clean
 
+RUN mkdir /usr/local/bin/fake \
+    && cd /usr/local/bin/fake \
+    && wget -q -O ./fake.zip 'https://github.com/fsharp/FAKE/releases/download/5.10.1/fake-dotnetcore-linux-x64.zip' \
+    && unzip ./fake.zip \
+    && chmod +x /usr/local/bin/fake/fake
+
 WORKDIR /root
 
 RUN wget https://github.com/fsprojects/Paket/releases/download/5.189.1/paket.exe \
