@@ -1,5 +1,5 @@
-FROM microsoft/dotnet:2.1.500-sdk-stretch as builder
-LABEL maintainer "FunctionalStack, Inc."
+FROM microsoft/dotnet:2.2.100-sdk-stretch as builder
+LABEL maintainer "FunctionalStack, Inc. <rajiv.mounguengue@functionalstack.io>"
 ENV MONO_THREADS_PER_CPU 50
 RUN MONO_VERSION=5.16.0.179 && \
     FSHARP_VERSION=10.2.1 && \
@@ -31,13 +31,13 @@ RUN MONO_VERSION=5.16.0.179 && \
 
 RUN mkdir /usr/local/bin/fake \
     && cd /usr/local/bin/fake \
-    && wget -q -O ./fake.zip 'https://github.com/fsharp/FAKE/releases/download/5.10.1/fake-dotnetcore-linux-x64.zip' \
+    && wget -q -O ./fake.zip 'https://github.com/fsharp/FAKE/releases/download/5.11.1/fake-dotnetcore-linux-x64.zip' \
     && unzip ./fake.zip \
     && chmod +x /usr/local/bin/fake/fake
 
 WORKDIR /root
 
-RUN wget https://github.com/fsprojects/Paket/releases/download/5.189.1/paket.exe \
+RUN wget https://github.com/fsprojects/Paket/releases/download/5.194.3/paket.exe \
     && chmod a+r paket.exe && mv paket.exe /usr/local/lib/ \
     && printf '#!/bin/sh\nexec /usr/bin/mono /usr/local/lib/paket.exe "$@"' >> /usr/local/bin/paket \
     && chmod u+x /usr/local/bin/paket
