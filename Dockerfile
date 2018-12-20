@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2.100-sdk-stretch as builder
+FROM microsoft/dotnet:2.2.101-sdk-stretch as builder
 LABEL maintainer "FunctionalStack, Inc. <rajiv.mounguengue@functionalstack.io>"
 ENV MONO_THREADS_PER_CPU 50
 RUN MONO_VERSION=5.16.0.179 && \
@@ -29,13 +29,14 @@ RUN MONO_VERSION=5.16.0.179 && \
     apt-get purge -y make gnupg dirmngr && \
     apt-get clean
 
+WORKDIR /root
+ENV FrameworkPathOverride /usr/lib/mono/4.7.1-api/
+
 RUN mkdir /usr/local/bin/fake \
     && cd /usr/local/bin/fake \
     && wget -q -O ./fake.zip 'https://github.com/fsharp/FAKE/releases/download/5.11.1/fake-dotnetcore-linux-x64.zip' \
     && unzip ./fake.zip \
     && chmod +x /usr/local/bin/fake/fake
-
-WORKDIR /root
 
 RUN wget https://github.com/fsprojects/Paket/releases/download/5.194.3/paket.exe \
     && chmod a+r paket.exe && mv paket.exe /usr/local/lib/ \
