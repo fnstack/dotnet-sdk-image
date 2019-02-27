@@ -31,8 +31,9 @@ RUN MONO_VERSION=5.18.0.240 && \
 WORKDIR /root
 ENV FrameworkPathOverride /usr/lib/mono/4.7.1-api/
 
-RUN dotnet tool install -g paket
-
-RUN dotnet tool install -g fake-cli
+RUN wget https://github.com/fsprojects/Paket/releases/download/5.198.0/paket.exe \ 
+    && chmod a+r paket.exe && mv paket.exe /usr/local/lib/ \ 
+    && printf '#!/bin/sh\nexec /usr/bin/mono /usr/local/lib/paket.exe "$@"' >> /usr/local/bin/paket \ 
+    && chmod u+x /usr/local/bin/paket
 
 ENTRYPOINT ["paket"]
