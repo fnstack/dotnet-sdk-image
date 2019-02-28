@@ -1,0 +1,26 @@
+version: '1.0'
+stages:
+  - build
+  - push
+steps:
+  build_dotnet_sdk:
+    stage: build
+    title: Build dotnet-sdk
+    type: build
+    image_name: functionalstack/dotnet-sdk
+    working_directory: src
+    dockerfile: Dockerfile
+  push_dotnet_sdk:
+    stage: push
+    title: Push dotnet-sdk
+    type: push
+    candidate: ${{build_dotnet_sdk}}
+    tags: 
+      - ${{CF_SHORT_REVISION}}
+      - "1.0"
+      - latest
+    registry: dockerhub
+    when: 
+      branch:
+        only:
+          - master
