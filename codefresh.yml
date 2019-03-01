@@ -24,3 +24,5 @@ steps:
       branch:
         only:
           - master
+          - develop
+          - codefresh-yaml
